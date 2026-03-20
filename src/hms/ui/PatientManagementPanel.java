@@ -246,6 +246,12 @@ public class PatientManagementPanel extends JPanel {
                 }
 
                 // Create patient object
+                String gender = "Other";
+                Object selectedGender = genderComboBox.getSelectedItem();
+                if (selectedGender != null) {
+                    gender = selectedGender.toString();
+                }
+
                 Patient patient = new Patient(
                         idField.getText(),
                         name,
@@ -253,7 +259,7 @@ public class PatientManagementPanel extends JPanel {
                         contact,
                         email,
                         addressField.getText().trim(),
-                        genderComboBox.getSelectedItem().toString(),
+                        gender,
                         "", // Blood group
                         "", // Allergies
                         disease
@@ -394,12 +400,18 @@ public class PatientManagementPanel extends JPanel {
                 }
 
                 // Update patient object
+                String gender = "Other";
+                Object selectedGender = genderComboBox.getSelectedItem();
+                if (selectedGender != null) {
+                    gender = selectedGender.toString();
+                }
+
                 patient.setName(name);
                 patient.setAge(age);
                 patient.setContact(contact);
                 patient.setEmail(email);
                 patient.setAddress(addressField.getText().trim());
-                patient.setGender(genderComboBox.getSelectedItem().toString());
+                patient.setGender(gender);
                 patient.setDisease(disease);
 
                 // Save patient

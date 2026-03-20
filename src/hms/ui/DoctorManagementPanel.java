@@ -262,6 +262,12 @@ public class DoctorManagementPanel extends JPanel {
                 }
 
                 // Create doctor object
+                String gender = "Other";
+                Object selectedGender = genderComboBox.getSelectedItem();
+                if (selectedGender != null) {
+                    gender = selectedGender.toString();
+                }
+
                 Doctor doctor = new Doctor(
                         idField.getText(),
                         name,
@@ -269,7 +275,7 @@ public class DoctorManagementPanel extends JPanel {
                         contact,
                         email,
                         addressField.getText().trim(),
-                        genderComboBox.getSelectedItem().toString(),
+                        gender,
                         specialization,
                         qualificationField.getText().trim(),
                         availability,
@@ -427,12 +433,18 @@ public class DoctorManagementPanel extends JPanel {
                 }
 
                 // Update doctor object
+                String gender = "Other";
+                Object selectedGender = genderComboBox.getSelectedItem();
+                if (selectedGender != null) {
+                    gender = selectedGender.toString();
+                }
+
                 doctor.setName(name);
                 doctor.setAge(age);
                 doctor.setContact(contact);
                 doctor.setEmail(email);
                 doctor.setAddress(addressField.getText().trim());
-                doctor.setGender(genderComboBox.getSelectedItem().toString());
+                doctor.setGender(gender);
                 doctor.setSpecialization(specialization);
                 doctor.setQualification(qualificationField.getText().trim());
                 doctor.setAvailability(availability);
