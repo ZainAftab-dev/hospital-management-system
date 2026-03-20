@@ -93,9 +93,17 @@ public class Doctor extends Person {
     }
 
     public String toFileString() {
-        return id + "," + name + "," + age + "," + contact + "," + email + "," +
-                address + "," + gender + "," + specialization + "," + qualification +
-                "," + availability + "," + consultationFee;
+        return (id != null ? id : "") + "," +
+                (name != null ? name : "") + "," +
+                age + "," +
+                (contact != null ? contact : "") + "," +
+                (email != null ? email : "") + "," +
+                (address != null ? address : "") + "," +
+                (gender != null ? gender : "") + "," +
+                (specialization != null ? specialization : "") + "," +
+                (qualification != null ? qualification : "") + "," +
+                (availability != null ? availability : "") + "," +
+                consultationFee;
     }
 
     @Override

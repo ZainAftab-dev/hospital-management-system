@@ -70,8 +70,16 @@ public class Patient extends Person {
     }
 
     public String toFileString() {
-        return id + "," + name + "," + age + "," + contact + "," + email + "," +
-                address + "," + gender + "," + bloodGroup + "," + allergies + "," + disease;
+        return (id != null ? id : "") + "," +
+                (name != null ? name : "") + "," +
+                age + "," +
+                (contact != null ? contact : "") + "," +
+                (email != null ? email : "") + "," +
+                (address != null ? address : "") + "," +
+                (gender != null ? gender : "") + "," +
+                (bloodGroup != null ? bloodGroup : "") + "," +
+                (allergies != null ? allergies : "") + "," +
+                (disease != null ? disease : "");
     }
 
     @Override

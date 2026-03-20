@@ -208,52 +208,79 @@ public class PatientManagementPanel extends JPanel {
         // Add action listeners
         saveButton.addActionListener(e -> {
             try {
-                // Validate input
+                // Validate input - ID
+                String patientIdInput = idField.getText().trim();
+                if (patientIdInput.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Patient ID cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Validate input - Name
                 String name = nameField.getText().trim();
                 if (name.isEmpty()) {
                     JOptionPane.showMessageDialog(dialog, "Name cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                if (name.length() < 2 || name.length() > 100) {
+                    JOptionPane.showMessageDialog(dialog, "Name must be between 2 and 100 characters", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
+                // Validate input - Age
+                String ageText = ageField.getText().trim();
+                if (ageText.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Age cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 int age;
                 try {
-                    age = Integer.parseInt(ageField.getText().trim());
+                    age = Integer.parseInt(ageText);
                     if (age <= 0 || age > 120) {
                         JOptionPane.showMessageDialog(dialog, "Age must be between 1 and 120", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialog, "Age must be a number", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Age must be a valid number", "Validation Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
+                // Validate input - Contact
                 String contact = contactField.getText().trim();
                 if (contact.isEmpty()) {
                     JOptionPane.showMessageDialog(dialog, "Contact cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
+                // Validate input - Email (if provided)
                 String email = emailField.getText().trim();
                 if (!email.isEmpty() && !ValidationUtils.isValidEmail(email)) {
                     JOptionPane.showMessageDialog(dialog, "Invalid email format", "Validation Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
+                // Validate input - Disease/Symptoms
                 String disease = diseaseField.getText().trim();
                 if (disease.isEmpty()) {
                     JOptionPane.showMessageDialog(dialog, "Disease/Symptoms cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
+                // Validate input - Gender
+                Object selectedGender = genderComboBox.getSelectedItem();
+                if (selectedGender == null || selectedGender.toString().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Please select a gender", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 // Create patient object
                 Patient patient = new Patient(
-                        idField.getText(),
+                        patientIdInput,
                         name,
                         age,
                         contact,
                         email,
                         addressField.getText().trim(),
-                        genderComboBox.getSelectedItem().toString(),
+                        selectedGender.toString(),
                         "", // Blood group
                         "", // Allergies
                         disease
@@ -265,7 +292,7 @@ public class PatientManagementPanel extends JPanel {
                     dialog.dispose();
                     loadPatients();
                 } else {
-                    JOptionPane.showMessageDialog(dialog, "Failed to add patient", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Failed to add patient (ID may already exist)", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(dialog, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
