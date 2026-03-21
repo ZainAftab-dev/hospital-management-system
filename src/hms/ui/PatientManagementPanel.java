@@ -215,9 +215,15 @@ public class PatientManagementPanel extends JPanel {
                     return;
                 }
 
+                String ageText = ageField.getText().trim();
+                if (ageText.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Age cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 int age;
                 try {
-                    age = Integer.parseInt(ageField.getText().trim());
+                    age = Integer.parseInt(ageText);
                     if (age <= 0 || age > 120) {
                         JOptionPane.showMessageDialog(dialog, "Age must be between 1 and 120", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -363,9 +369,15 @@ public class PatientManagementPanel extends JPanel {
                     return;
                 }
 
+                String ageText = ageField.getText().trim();
+                if (ageText.isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog, "Age cannot be empty", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 int age;
                 try {
-                    age = Integer.parseInt(ageField.getText().trim());
+                    age = Integer.parseInt(ageText);
                     if (age <= 0 || age > 120) {
                         JOptionPane.showMessageDialog(dialog, "Age must be between 1 and 120", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         return;
